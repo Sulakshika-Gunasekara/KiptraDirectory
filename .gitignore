@@ -1,17 +1,19 @@
-# Ignore sensitive configuration files
+# Ignore sensitive configuration files unless they are templates
 config/database.php
 
-# Ignore temporary debugging files
-public/test_db.php
+# Ignore Composer dependencies
+vendor/
 
 # Ignore log files
+*.log
 php_server.log
 
-# Ignore verification files
+# Ignore temporary files and build artifacts
+.DS_Store
+/dist/
+
+# Ignore verification scripts and screenshots
 /home/jules/verification/
 
-# Ignore SQLite database
-database/kiptra.db
-
-# Ignore setup script
-setup.php
+# Ignore SQLite database file
+database/*.db

@@ -5,15 +5,16 @@ class BaseController {
     public function __construct() {
         require_once __DIR__ . '/../../config/database.php';
         try {
-            if (DB_CONNECTION === 'sqlite') {
-                $this->db = new PDO('sqlite:' . DB_HOST);
+            if (defined('DB_CONNECTION') && DB_CONNECTION === 'sqlite') {
+                $this->db = new PDO('sqlite:' . DB_PATH);
             } else {
+                // Fallback for MySQL if needed
                 $this->db = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
             }
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            error_log($e->getMessage());
-            $this->sendJsonResponse(['error' => 'Database connection failed'], 500);
+            error_log("Database Connection Error: " . $e->getMessage());
+            $this->sendJsonResponse(['error' => 'Database connection failed. Check server logs.'], 500);
         }
     }
 
