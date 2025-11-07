@@ -9,3 +9,9 @@ php_server.log
 
 # Ignore verification files
 /home/jules/verification/
+
+# Ignore SQLite database
+database/kiptra.db
+
+# Ignore setup script
+setup.php

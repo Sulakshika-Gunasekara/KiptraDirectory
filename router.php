@@ -1,19 +1,22 @@
 <?php
-// router.php
-$url = $_SERVER['REQUEST_URI'];
+// router.php - A router for the PHP built-in web server.
 
-// Serve static files as is
-if (preg_match('/\.(?:png|jpg|jpeg|gif|css|js)$/', $url)) {
+$publicPath = __DIR__ . '/public';
+$uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+// If the requested URI is a file that exists in the public directory,
+// return false to let the built-in server handle it.
+$requestedFile = $publicPath . $uri;
+if ($uri !== '/' && file_exists($requestedFile) && is_file($requestedFile)) {
     return false;
 }
 
-// Basic routing
-if (strpos($url, '/api/') === 0) {
+// For all other requests, route them through our application's entry points.
+if (strpos($uri, '/api/') === 0) {
     // API request
-    // We need to simulate the $_GET['url'] for the api.php router
-    $_GET['url'] = ltrim($url, '/');
+    $_GET['url'] = ltrim($uri, '/');
     require_once __DIR__ . '/routes/api.php';
 } else {
-    // Serve the frontend
-    require_once __DIR__ . '/public/index.php';
+    // Frontend page request
+    require_once $publicPath . '/index.php';
 }
