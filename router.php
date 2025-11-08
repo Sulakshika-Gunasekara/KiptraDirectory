@@ -16,6 +16,9 @@ if (strpos($uri, '/api/') === 0) {
     // API request
     $_GET['url'] = ltrim($uri, '/');
     require_once __DIR__ . '/routes/api.php';
+} elseif ($uri === '/home.php') {
+    // Serve the home page
+    require_once __DIR__ . '/app/views/home.php';
 } else {
     // Frontend page request
     require_once $publicPath . '/index.php';
