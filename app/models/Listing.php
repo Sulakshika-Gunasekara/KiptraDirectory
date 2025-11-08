@@ -6,8 +6,17 @@ class Listing {
         $this->db = $db;
     }
 
-    public function getAll() {
-        $stmt = $this->db->query("SELECT * FROM listings");
+    public function getAll($categoryId = null) {
+        $sql = "SELECT * FROM listings";
+        if ($categoryId) {
+            $sql .= " WHERE category_id = :category_id";
+        }
+        $stmt = $this->db->prepare($sql);
+        if ($categoryId) {
+            $stmt->execute(['category_id' => $categoryId]);
+        } else {
+            $stmt->execute();
+        }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

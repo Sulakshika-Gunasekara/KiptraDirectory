@@ -1,72 +1,73 @@
--- Kiptra Sri Lanka SQLite Schema
+-- Kiptra Sri Lanka MySQL Schema
 
 -- Users Table
-CREATE TABLE IF NOT EXISTS "users" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "name" TEXT NOT NULL,
-  "email" TEXT NOT NULL UNIQUE,
-  "role" TEXT NOT NULL DEFAULT 'User' CHECK(role IN ('Admin', 'Vendor', 'Moderator', 'User')),
-  "verified" INTEGER NOT NULL DEFAULT 0,
-  "password" TEXT NOT NULL,
-  "created_at" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
+  `role` VARCHAR(255) NOT NULL DEFAULT 'User',
+  `verified` TINYINT(1) NOT NULL DEFAULT 0,
+  `password` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Categories Table
-CREATE TABLE IF NOT EXISTS "categories" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "name" TEXT NOT NULL,
-  "icon" TEXT,
-  "parent_id" INTEGER,
-  FOREIGN KEY (parent_id) REFERENCES categories (id) ON DELETE SET NULL
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `icon` VARCHAR(255),
+  `parent_id` INT,
+  FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL
 );
 
 -- Vendors Table
-CREATE TABLE IF NOT EXISTS "vendors" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "user_id" INTEGER NOT NULL,
-  "verified" INTEGER NOT NULL DEFAULT 0,
-  "business_name" TEXT NOT NULL,
-  "website" TEXT,
-  "created_at" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS `vendors` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `verified` TINYINT(1) NOT NULL DEFAULT 0,
+  `business_name` VARCHAR(255) NOT NULL,
+  `website` VARCHAR(255),
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 );
 
 -- Listings Table
-CREATE TABLE IF NOT EXISTS "listings" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "title" TEXT NOT NULL,
-  "description" TEXT NOT NULL,
-  "category_id" INTEGER NOT NULL,
-  "location" TEXT NOT NULL,
-  "contact_info" TEXT,
-  "rating_avg" REAL NOT NULL DEFAULT 0.00,
-  "vendor_id" INTEGER,
-  "created_at" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE,
-  FOREIGN KEY (vendor_id) REFERENCES vendors (id) ON DELETE SET NULL
+CREATE TABLE IF NOT EXISTS `listings` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
+  `category_id` INT NOT NULL,
+  `location` VARCHAR(255) NOT NULL,
+  `contact_info` VARCHAR(255),
+  `rating_avg` DECIMAL(3, 2) NOT NULL DEFAULT 0.00,
+  `vendor_id` INT,
+  `image_url` VARCHAR(255),
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE SET NULL
 );
 
 -- Reviews Table
-CREATE TABLE IF NOT EXISTS "reviews" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "listing_id" INTEGER NOT NULL,
-  "user_id" INTEGER NOT NULL,
-  "rating" INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 5),
-  "comment" TEXT,
-  "status" TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'approved', 'rejected')),
-  "created_at" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (listing_id) REFERENCES listings (id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `listing_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `rating` INT NOT NULL,
+  `comment` TEXT,
+  `status` VARCHAR(255) NOT NULL DEFAULT 'pending',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`listing_id`) REFERENCES `listings` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 );
 
 -- Flags Table
-CREATE TABLE IF NOT EXISTS "flags" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "listing_id" INTEGER NOT NULL,
-  "user_id" INTEGER NOT NULL,
-  "reason" TEXT NOT NULL,
-  "status" TEXT NOT NULL DEFAULT 'pending' CHECK(status IN ('pending', 'resolved')),
-  "created_at" TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (listing_id) REFERENCES listings (id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS `flags` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `listing_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `reason` TEXT NOT NULL,
+  `status` VARCHAR(255) NOT NULL DEFAULT 'pending',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`listing_id`) REFERENCES `listings` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 );

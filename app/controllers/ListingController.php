@@ -7,7 +7,8 @@ class ListingController extends BaseController {
     public function index() {
         try {
             $listingModel = new Listing($this->db);
-            $listings = $listingModel->getAll();
+            $categoryId = $_GET['category_id'] ?? null;
+            $listings = $listingModel->getAll($categoryId);
             $this->sendJsonResponse($listings);
         } catch (Exception $e) {
             error_log($e->getMessage());
