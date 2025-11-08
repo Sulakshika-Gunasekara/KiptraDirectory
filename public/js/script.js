@@ -1,23 +1,16 @@
 function appState() {
     return {
-        listings: [],
+        view: 'home', // home, listing, hotel
         categories: [],
-        currentView: 'home',
+        listings: [],
+        selectedListing: null,
+        reviews: [],
 
         init() {
-            this.loadListings();
-            this.loadCategories();
+            this.fetchCategories();
         },
 
-        loadListings() {
-            fetch('/api/listings')
-                .then(response => response.json())
-                .then(data => {
-                    this.listings = data;
-                });
-        },
-
-        loadCategories() {
+        fetchCategories() {
             fetch('/api/categories')
                 .then(response => response.json())
                 .then(data => {
@@ -25,13 +18,35 @@ function appState() {
                 });
         },
 
-        loadContent(view) {
-            this.currentView = view;
+        loadListings(categoryId) {
+            fetch(`/api/listings?category_id=${categoryId}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.listings = data;
+                    this.view = 'listing';
+                });
+        },
+
+        loadHotel(listingId) {
+            fetch(`/api/listings/${listingId}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.selectedListing = data;
+                    this.fetchReviews(listingId);
+                    this.view = 'hotel';
+                });
+        },
+
+        fetchReviews(listingId) {
+            fetch(`/api/reviews?listing_id=${listingId}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.reviews = data;
+                });
         }
     }
 }
 
-// Initialize the app
 document.addEventListener('alpine:init', () => {
-    Alpine.data('appState', appState);
-});
+    Alpine.data('appState', appState)
+})
