@@ -17,6 +17,12 @@
                 <header class="text-center mb-8">
                     <h1 class="text-3xl font-bold">Kiptra Sri Lanka</h1>
                     <p class="text-gray-600">Your Ultimate Travel Directory</p>
+                    <div class="relative mt-4">
+                        <input type="text" placeholder="Search..." class="w-full py-2 pl-10 pr-4 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
                 </header>
 
                 <main>
@@ -49,18 +55,6 @@
                     <a href="#" @click.prevent="view = 'home'" class="text-gray-600 hover:text-gray-900">
                         <i class="fas fa-home text-2xl"></i>
                         <span class="text-xs">Home</span>
-                    </a>
-                    <a href="#" @click.prevent="loadContent('categories')" class="text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-th-large text-2xl"></i>
-                        <span class="text-xs">Categories</span>
-                    </a>
-                    <a href="#" class="text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-map-marker-alt text-2xl"></i>
-                        <span class="text-xs">Map</span>
-                    </a>
-                    <a href="#" class="text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-search text-2xl"></i>
-                        <span class="text-xs">Search</span>
                     </a>
                     <a href="#" class="text-gray-600 hover:text-gray-900">
                         <i class="fas fa-user-circle text-2xl"></i>

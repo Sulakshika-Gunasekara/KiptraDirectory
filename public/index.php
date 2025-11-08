@@ -12,5 +12,5 @@ if (strpos($url, 'api/') === 0) {
     // Serve the frontend
     // For now, we'll just include a placeholder.
     // In the next step, we'll build the actual frontend.
-    require_once __DIR__ . '/../app/views/home.php';
+    require_once __DIR__ . '/../app/views/welcome.php';
 }
