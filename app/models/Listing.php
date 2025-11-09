@@ -21,7 +21,12 @@ class Listing {
     }
 
     public function getById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM listings WHERE id = :id");
+        $stmt = $this->db->prepare("
+            SELECT l.*, v.website
+            FROM listings l
+            LEFT JOIN vendors v ON l.vendor_id = v.id
+            WHERE l.id = :id
+        ");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
