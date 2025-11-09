@@ -1,8 +1,10 @@
 function appState() {
     return {
-        view: 'home', // home, listing, hotel
+        view: 'home', // home, subcategory, listing, hotel
         categories: [],
+        subCategories: [],
         listings: [],
+        selectedCategory: null,
         selectedListing: null,
         reviews: [],
 
@@ -15,6 +17,20 @@ function appState() {
                 .then(response => response.json())
                 .then(data => {
                     this.categories = data;
+                });
+        },
+
+        loadSubCategories(category) {
+            this.selectedCategory = category;
+            fetch(`/api/categories?parent_id=${category.id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        this.subCategories = data;
+                        this.view = 'subcategory';
+                    } else {
+                        this.loadListings(category.id);
+                    }
                 });
         },
 

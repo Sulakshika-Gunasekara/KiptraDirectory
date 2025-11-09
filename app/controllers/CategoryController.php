@@ -6,7 +6,11 @@ class CategoryController extends BaseController {
 
     public function index() {
         $categoryModel = new Category($this->db);
-        $categories = $categoryModel->getAll();
+        if (isset($_GET['parent_id'])) {
+            $categories = $categoryModel->getByParentId($_GET['parent_id']);
+        } else {
+            $categories = $categoryModel->getTopLevel();
+        }
         $this->sendJsonResponse($categories);
     }
 }
