@@ -18,9 +18,9 @@
                     <h1 class="text-3xl font-bold">Kiptra Sri Lanka</h1>
                     <p class="text-gray-600">Your Ultimate Travel Directory</p>
                     <div class="relative mt-4">
-                        <input type="text" placeholder="Search..." class="w-full py-2 pl-10 pr-4 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" x-model="searchQuery" @keydown.enter="search()">
+                        <!-- <input type="text" placeholder="Search..." class="w-full py-2 pl-10 pr-4 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" x-model="searchQuery" @keydown.enter="search()"> -->
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                            <i class="fas fa-search text-gray-400"></i>
+                            <!-- <i class="fas fa-search text-gray-400"></i> -->
                         </div>
                     </div>
                 </header>
