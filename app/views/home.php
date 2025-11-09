@@ -28,7 +28,7 @@
                 <main>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         <template x-for="category in categories" :key="category.id">
-                            <a href="#" @click.prevent="loadListings(category.id)" class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
+                            <a href="#" @click.prevent="loadSubCategories(category)" class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
                                 <i :class="category.icon" class="text-4xl text-blue-500 mb-2"></i>
                                 <span class="font-semibold" x-text="category.name"></span>
                             </a>
@@ -36,6 +36,11 @@
                     </div>
                 </main>
             </div>
+        </template>
+
+        <!-- Sub-Category Page -->
+        <template x-if="view === 'subcategory'">
+            <?php include 'subcategory.php'; ?>
         </template>
 
         <!-- Listing Page -->
