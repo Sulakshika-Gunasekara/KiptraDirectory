@@ -7,6 +7,8 @@ function appState() {
         selectedCategory: null,
         selectedListing: null,
         reviews: [],
+        searchQuery: '',
+        filteredListings: [],
 
         init() {
             this.fetchCategories();
@@ -39,8 +41,19 @@ function appState() {
                 .then(response => response.json())
                 .then(data => {
                     this.listings = data;
+                    this.filteredListings = data;
                     this.view = 'listing';
                 });
+        },
+
+        filterListings() {
+            if (this.searchQuery.trim() === '') {
+                this.filteredListings = this.listings;
+                return;
+            }
+            this.filteredListings = this.listings.filter(listing =>
+                listing.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
         },
 
         loadHotel(listingId) {
@@ -58,6 +71,16 @@ function appState() {
                 .then(response => response.json())
                 .then(data => {
                     this.reviews = data;
+                });
+        },
+
+        search() {
+            if (this.searchQuery.trim() === '') return;
+            fetch(`/api/listings/search?q=${this.searchQuery}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.listings = data;
+                    this.view = 'listing';
                 });
         }
     }

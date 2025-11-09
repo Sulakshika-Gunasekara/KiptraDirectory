@@ -30,4 +30,16 @@ class ListingController extends BaseController {
             $this->sendJsonResponse(['error' => 'An error occurred while fetching the listing'], 500);
         }
     }
+
+    public function search() {
+        try {
+            $listingModel = new Listing($this->db);
+            $query = $_GET['q'] ?? '';
+            $listings = $listingModel->search($query);
+            $this->sendJsonResponse($listings);
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            $this->sendJsonResponse(['error' => 'An error occurred during the search'], 500);
+        }
+    }
 }
