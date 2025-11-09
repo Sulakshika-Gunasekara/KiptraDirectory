@@ -1,6 +1,6 @@
 function appState() {
     return {
-        view: 'home', // home, subcategory, listing, hotel
+        view: 'home', // home, subcategory, listing, hotel, profile
         categories: [],
         subCategories: [],
         listings: [],
@@ -8,6 +8,8 @@ function appState() {
         activeSubCategory: null,
         selectedListing: null,
         reviews: [],
+        user: {},
+        loggedInUserId: 3, // Assuming user with ID 3 is logged in
         searchQuery: '',
         filteredListings: [],
 
@@ -75,6 +77,15 @@ function appState() {
                 .then(response => response.json())
                 .then(data => {
                     this.reviews = data;
+                });
+        },
+
+        loadUser() {
+            fetch(`/api/users/${this.loggedInUserId}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.user = data;
+                    this.view = 'profile';
                 });
         },
 

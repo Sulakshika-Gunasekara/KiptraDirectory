@@ -3,7 +3,8 @@
 -- Users
 INSERT INTO "users" ("name", "email", "role", "verified", "password") VALUES
 ('Admin User', 'admin@kiptra.com', 'Admin', 1, 'password123'),
-('Vendor User', 'vendor@kiptra.com', 'Vendor', 1, 'password123');
+('Vendor User', 'vendor@kiptra.com', 'Vendor', 1, 'password123'),
+('Regular User', 'user@kiptra.com', 'User', 1, 'password123');
 
 -- Main Categories (parent_id is NULL)
 -- The IDs are explicitly set to make parent_id references stable.

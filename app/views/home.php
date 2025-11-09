@@ -53,6 +53,11 @@
             <?php include 'hotel.php'; ?>
         </template>
 
+        <!-- Profile Page -->
+        <template x-if="view === 'profile'">
+            <?php include 'profile.php'; ?>
+        </template>
+
         <!-- Bottom Navigation -->
         <nav class="bg-white shadow-t sticky bottom-0 z-10">
             <div class="container mx-auto px-4 py-2">
@@ -61,7 +66,7 @@
                         <i class="fas fa-home text-2xl"></i>
                         <span class="text-xs">Home</span>
                     </a>
-                    <a href="#" class="text-gray-600 hover:text-gray-900">
+                    <a href="#" @click.prevent="loadUser()" class="text-gray-600 hover:text-gray-900">
                         <i class="fas fa-user-circle text-2xl"></i>
                         <span class="text-xs">Profile</span>
                     </a>
