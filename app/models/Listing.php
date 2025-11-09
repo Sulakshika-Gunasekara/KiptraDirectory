@@ -26,6 +26,12 @@ class Listing {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function search($query) {
+        $stmt = $this->db->prepare("SELECT * FROM listings WHERE title LIKE :query OR description LIKE :query");
+        $stmt->execute(['query' => '%' . $query . '%']);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function updateAverageRating($listing_id) {
         $stmt = $this->db->prepare("
             UPDATE listings l

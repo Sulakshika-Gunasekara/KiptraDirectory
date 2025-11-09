@@ -7,19 +7,13 @@
     </header>
 
     <div class="mb-8">
-        <input type="text" placeholder="Search here..." class="w-full px-4 py-2 border rounded-full">
-    </div>
-
-    <div class="flex space-x-4 mb-8 overflow-x-auto">
-        <template x-for="subcategory in ['Hotels', 'Hostels', 'Eco Lodges']" :key="subcategory">
-            <button class="bg-gray-200 px-4 py-2 rounded-full" x-text="subcategory"></button>
-        </template>
+        <input type="text" placeholder="Search here..." class="w-full px-4 py-2 border rounded-full" x-model="searchQuery" @input="filterListings()">
     </div>
 
     <main>
         <h3 class="text-xl font-semibold mb-4">Recommended</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <template x-for="listing in listings" :key="listing.id">
+            <template x-for="listing in filteredListings" :key="listing.id">
                 <a href="#" @click.prevent="loadHotel(listing.id)" class="bg-white p-4 rounded-lg shadow-md">
                     <img :src="listing.image_url" :alt="listing.title" class="w-full h-32 object-cover rounded-lg mb-4">
                     <h4 class="font-semibold" x-text="listing.title"></h4>

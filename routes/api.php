@@ -18,7 +18,9 @@ if ($path_parts[0] === 'api') {
         case 'listings':
             require_once __DIR__ . '/../app/controllers/ListingController.php';
             $controller = new ListingController();
-            if ($id) {
+            if ($id === 'search') {
+                $controller->search();
+            } elseif ($id) {
                 $controller->show($id);
             } else {
                 $controller->index();
