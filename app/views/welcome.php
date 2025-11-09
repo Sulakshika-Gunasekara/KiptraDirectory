@@ -6,6 +6,7 @@
     <meta http-equiv="refresh" content="3;url=home.php" />
     <title>Welcome to Kiptra Listing Directory</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
         .splash-screen {
@@ -16,19 +17,11 @@
             height: 100vh;
             background-color: #f0f4f8;
         }
-        .logo {
-            /* Placeholder for logo */
-            width: 150px;
-            height: 150px;
-            background-color: #ccc;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
     <div class="splash-screen">
-        <div class="logo"></div>
+        <i class="fas fa-plane-departure text-6xl text-blue-500 mb-4"></i>
         <h1 class="text-3xl font-bold">KIPTRA Listing Directory</h1>
     </div>
 </body>
