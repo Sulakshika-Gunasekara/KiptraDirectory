@@ -48,6 +48,14 @@ if ($path_parts[0] === 'api') {
             }
             break;
 
+        case 'users':
+            require_once __DIR__ . '/../app/controllers/UserController.php';
+            $controller = new UserController();
+            if ($id) {
+                $controller->show($id);
+            }
+            break;
+
         default:
             http_response_code(404);
             echo json_encode(['error' => 'Resource not found']);

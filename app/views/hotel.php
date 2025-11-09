@@ -24,17 +24,22 @@
         <div class="mt-8">
             <h3 class="text-xl font-semibold mb-4">Reviews</h3>
             <div class="space-y-4">
-                <template x-for="review in reviews" :key="review.id">
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <div class="flex items-center mb-2">
-                            <img src="https://via.placeholder.com/40" alt="Reviewer" class="w-10 h-10 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-semibold" x-text="review.reviewer_name"></h4>
-                                <div class="text-yellow-500" x-html="'★'.repeat(review.rating)"></div>
+                <template x-if="reviews.length > 0">
+                    <template x-for="review in reviews" :key="review.id">
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <div class="flex items-center mb-2">
+                                <img src="https://via.placeholder.com/40" alt="Reviewer" class="w-10 h-10 rounded-full mr-4">
+                                <div>
+                                    <h4 class="font-semibold" x-text="review.reviewer_name"></h4>
+                                    <div class="text-yellow-500" x-html="'★'.repeat(review.rating)"></div>
+                                </div>
                             </div>
+                            <p class="text-gray-600" x-text="review.comment"></p>
                         </div>
-                        <p class="text-gray-600" x-text="review.comment"></p>
-                    </div>
+                    </template>
+                </template>
+                <template x-if="reviews.length === 0">
+                    <p class="text-gray-600">No reviews yet.</p>
                 </template>
             </div>
         </div>
