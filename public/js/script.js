@@ -5,6 +5,7 @@ function appState() {
         subCategories: [],
         listings: [],
         selectedCategory: null,
+        activeSubCategory: null,
         selectedListing: null,
         reviews: [],
         searchQuery: '',
@@ -29,6 +30,7 @@ function appState() {
                 .then(data => {
                     if (data.length > 0) {
                         this.subCategories = data;
+                        this.loadListings(data[0].id); // Load listings for the first sub-category
                         this.view = 'subcategory';
                     } else {
                         this.loadListings(category.id);
@@ -37,12 +39,13 @@ function appState() {
         },
 
         loadListings(categoryId) {
+            this.activeSubCategory = categoryId;
             fetch(`/api/listings?category_id=${categoryId}`)
                 .then(response => response.json())
                 .then(data => {
                     this.listings = data;
                     this.filteredListings = data;
-                    this.view = 'listing';
+                    this.view = this.subCategories.length > 0 ? 'subcategory' : 'listing';
                 });
         },
 
@@ -80,6 +83,7 @@ function appState() {
                 .then(response => response.json())
                 .then(data => {
                     this.listings = data;
+                    this.filteredListings = data;
                     this.view = 'listing';
                 });
         }
