@@ -7,7 +7,12 @@ class Review {
     }
 
     public function getByListingId($listing_id) {
-        $stmt = $this->db->prepare("SELECT * FROM reviews WHERE listing_id = :listing_id");
+        $stmt = $this->db->prepare("
+            SELECT r.*, u.name as reviewer_name
+            FROM reviews r
+            JOIN users u ON r.user_id = u.id
+            WHERE r.listing_id = :listing_id
+        ");
         $stmt->execute(['listing_id' => $listing_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

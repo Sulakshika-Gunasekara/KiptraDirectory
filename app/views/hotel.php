@@ -16,8 +16,8 @@
             <p class="text-gray-600 mb-4" x-text="selectedListing?.description"></p>
             <div class="flex justify-around py-4 border-t border-b">
                 <button class="text-blue-500"><i class="fas fa-phone-alt text-2xl"></i></button>
-                <button class="text-blue-500"><i class="fas fa-map-marker-alt text-2xl"></i></button>
-                <button class="text-blue-500"><i class="fas fa-globe text-2xl"></i></button>
+                <a :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(selectedListing?.location)" target="_blank" class="text-blue-500"><i class="fas fa-map-marker-alt text-2xl"></i></a>
+                <a :href="selectedListing?.website" target="_blank" class="text-blue-500" :class="{ 'hidden': !selectedListing?.website }"><i class="fas fa-globe text-2xl"></i></a>
             </div>
         </div>
 
