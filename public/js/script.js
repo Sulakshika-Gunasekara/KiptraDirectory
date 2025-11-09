@@ -25,6 +25,7 @@ function appState() {
 
         loadSubCategories(category) {
             this.selectedCategory = category;
+            this.subCategories = []; // Reset sub-categories
             fetch(`/api/categories?parent_id=${category.id}`)
                 .then(response => response.json())
                 .then(data => {
