@@ -1,14 +1,32 @@
 <div class="container mx-auto px-4 py-8">
-    <header class="text-center mb-8">
-        <h1 class="text-3xl font-bold" x-text="selectedCategory.name"></h1>
-        <p class="text-gray-600">Choose a sub-category</p>
+    <header class="flex items-center mb-8">
+        <button @click="view = 'home'" class="mr-4">
+            <i class="fas fa-arrow-left text-2xl"></i>
+        </button>
+        <h2 class="text-2xl font-bold" x-text="selectedCategory.name"></h2>
     </header>
 
+    <div class="flex space-x-4 mb-8 overflow-x-auto">
+        <template x-for="subcategory in subCategories" :key="subcategory.id">
+            <button
+                @click="loadListings(subcategory.id)"
+                :class="{ 'bg-blue-500 text-white': activeSubCategory === subcategory.id, 'bg-gray-200': activeSubCategory !== subcategory.id }"
+                class="px-4 py-2 rounded-full"
+                x-text="subcategory.name"
+            ></button>
+        </template>
+    </div>
+
     <main>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            <template x-for="category in subCategories" :key="category.id">
-                <a href="#" @click.prevent="loadListings(category.id)" class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center text-center">
-                    <span class="font-semibold" x-text="category.name"></span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <template x-for="listing in listings" :key="listing.id">
+                <a href="#" @click.prevent="loadHotel(listing.id)" class="bg-white p-4 rounded-lg shadow-md">
+                    <img :src="listing.image_url" :alt="listing.title" class="w-full h-32 object-cover rounded-lg mb-4">
+                    <h4 class="font-semibold" x-text="listing.title"></h4>
+                    <div class="flex items-center">
+                        <span class="text-yellow-500" x-html="'★'.repeat(Math.round(listing.rating_avg))"></span>
+                        <span class="ml-2 text-gray-600 text-sm" x-text="listing.rating_avg"></span>
+                    </div>
                 </a>
             </template>
         </div>
