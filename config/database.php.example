@@ -1,4 +1,8 @@
 <?php
-// SQLite Database Configuration
-define('DB_CONNECTION', 'sqlite');
-define('DB_PATH', __DIR__ . '/../database/kiptra.db');
+// MySQL Database Configuration
+define('DB_CONNECTION', 'mysql');
+define('DB_HOST', 'localhost');
+define('DB_PORT', '3306');
+define('DB_DATABASE', 'your_database_name');
+define('DB_USERNAME', 'your_database_user');
+define('DB_PASSWORD', 'your_database_password');
