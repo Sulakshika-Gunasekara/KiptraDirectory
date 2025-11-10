@@ -1,14 +1,14 @@
--- Kiptra Sri Lanka SQLite Seed Data
+-- Kiptra Sri Lanka MySQL Seed Data
 
 -- Users
-INSERT INTO "users" ("name", "email", "role", "verified", "password") VALUES
+INSERT INTO `users` (`name`, `email`, `role`, `verified`, `password`) VALUES
 ('Admin User', 'admin@kiptra.com', 'Admin', 1, 'password123'),
 ('Vendor User', 'vendor@kiptra.com', 'Vendor', 1, 'password123'),
 ('Regular User', 'user@kiptra.com', 'User', 1, 'password123');
 
 -- Main Categories (parent_id is NULL)
 -- The IDs are explicitly set to make parent_id references stable.
-INSERT INTO "categories" ("id", "name", "icon", "parent_id") VALUES
+INSERT INTO `categories` (`id`, `name`, `icon`, `parent_id`) VALUES
 (1, 'Arrival & Essentials', 'fas fa-plane-arrival', NULL),
 (2, 'Health & Safety', 'fas fa-heartbeat', NULL),
 (3, 'Transport', 'fas fa-bus', NULL),
@@ -27,7 +27,7 @@ INSERT INTO "categories" ("id", "name", "icon", "parent_id") VALUES
 
 -- Sub-Categories
 -- Each record has a name and a parent_id linking it to a main category.
-INSERT INTO "categories" ("id", "name", "parent_id") VALUES
+INSERT INTO `categories` (`id`, `name`, `parent_id`) VALUES
 -- Arrival & Essentials Subs
 (16, 'Visa', 1),
 (17, 'SIM', 1),
@@ -84,7 +84,7 @@ INSERT INTO "categories" ("id", "name", "parent_id") VALUES
 -- Listings
 -- The category_id now points to a sub-category ID.
 -- For main categories without defined sub-categories, it points to the main category ID.
-INSERT INTO "listings" ("title", "description", "category_id", "location", "contact_info", "rating_avg", "vendor_id", "image_url") VALUES
+INSERT INTO `listings` (`title`, `description`, `category_id`, `location`, `contact_info`, `rating_avg`, `vendor_id`, `image_url`) VALUES
 -- Arrival & Essentials Listings
 ('Online Visa Application', 'Official government portal for Sri Lankan ETA.', 16, 'Online', 'https://www.eta.gov.lk', 4.8, NULL, 'https://images.unsplash.com/photo-1578509349548-1a5c7a5f22e7?q=80&w=2070&auto=format&fit=crop'),
 ('Dialog Tourist SIM', 'Get a local SIM card with 4G coverage.', 17, 'Bandaranaike International Airport', '+94 77 712 3456', 4.5, NULL, 'https://images.unsplash.com/photo-1582267549339-342a1a2b4676?q=80&w=2070&auto=format&fit=crop'),
@@ -149,5 +149,5 @@ INSERT INTO "listings" ("title", "description", "category_id", "location", "cont
 ('Dehiwala Zoo', 'A great place for a family outing to see a variety of animals.', 14, 'Dehiwala, Sri Lanka', '+94 11 271 2751', 4.4, NULL, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=2070&auto=format&fit=crop');
 
 -- Reviews
-INSERT INTO "reviews" ("listing_id", "user_id", "rating", "comment", "status") VALUES
+INSERT INTO `reviews` (`listing_id`, `user_id`, `rating`, `comment`, `status`) VALUES
 (2, 1, 5, 'Super easy to activate and the coverage was excellent.', 'approved');
