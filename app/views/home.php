@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-gray-100">
-    <div x-data="appState()" x-init="init()">
-        <!-- Home Page -->
-        <template x-if="view === 'home'">
-            <div class="container mx-auto px-4 py-8">
-                <header class="text-center mb-8">
-                    <h1 class="text-3xl font-bold">Kiptra Sri Lanka</h1>
+    <div x-data="appState()" x-init="init()" class="flex flex-col min-h-screen">
+        <div class="flex-grow">
+            <!-- Home Page -->
+            <template x-if="view === 'home'">
+                <div class="container mx-auto px-4 py-8">
+                    <header class="text-center mb-8">
+                        <h1 class="text-3xl font-bold">Kiptra Sri Lanka</h1>
                     <p class="text-gray-600">Your Ultimate Travel Directory</p>
                     <div class="relative mt-4">
                         <!-- <input type="text" placeholder="Search..." class="w-full py-2 pl-10 pr-4 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" x-model="searchQuery" @keydown.enter="search()"> -->
@@ -57,6 +58,7 @@
         <template x-if="view === 'profile'">
             <?php include 'profile.php'; ?>
         </template>
+        </div>
 
         <!-- Bottom Navigation -->
         <nav class="bg-white shadow-t sticky bottom-0 z-10">
